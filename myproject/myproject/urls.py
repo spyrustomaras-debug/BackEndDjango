@@ -6,7 +6,7 @@ from myapp import views
 router = DefaultRouter()
 router.register(r'profiles', views.ProfileViewSet)
 router.register(r'useraccounts', views.UserAccountViewSet)
-router.register(r'authors', views.AuthorViewSet)
+router.register(r'authors', views.AuthorViewSet, basename='author')
 router.register(r'books', views.BookViewSet)
 router.register(r'students', views.StudentViewSet)
 router.register(r'courses', views.CourseViewSet)
