@@ -23,9 +23,14 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import viewsets
 
+from rest_framework.permissions import IsAuthenticated
+
+
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]  # 🔒 Require JWT
+
 
 class UserAccountViewSet(viewsets.ModelViewSet):
     queryset = UserAccount.objects.all()
