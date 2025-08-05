@@ -19,12 +19,21 @@ class BookSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class AuthorSerializer(serializers.ModelSerializer):
-    books = BookSerializer(many=True, read_only=True)
+    books = BookSerializer(many=True, required=False)  # Nested field
 
     class Meta:
         model = Author
-        fields = '__all__'
+        fields = ['id', 'name', 'books']
 
+    def create(self, validated_data):
+        books_data = validated_data.pop('books', [])
+        author = Author.objects.create(**validated_data)
+
+        for book_data in books_data:
+            Book.objects.create(author=author, **book_data)
+
+        return author
+    
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student

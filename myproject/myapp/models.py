@@ -5,6 +5,7 @@ from django.db import models
 class Profile(models.Model):
     user_name = models.CharField(max_length=100)
     bio = models.TextField()
+    active = models.BooleanField(default=True)
     
 class UserAccount(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name='account')
